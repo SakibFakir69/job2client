@@ -3,27 +3,45 @@
 
 
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Auth } from '../firebase/config';
-import { GoogleAuthProvider, ProviderId, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, ProviderId, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 export const Myproviderapi = createContext();
 
 function ContextProvider({children}) {
 
 
-    const [ loading , setloading ] = useState(false);
+
+
+    const [ loading , setloading ] = useState(true);
     const [ user , setuser ] = useState(null);
 
 
 
-    const  createUserWithPassword = (email , password)=>{
-        return signInWithEmailAndPassword(email, password)
+    const  UserWithPasswordRegistation = (email , password)=>{
+
+        return createUserWithEmailAndPassword(Auth,email, password)
     }
+
     const Provider = new GoogleAuthProvider();
+
     const siginINWithGoogle = ()=>{
 
         return signInWithPopup(Auth,Provider)
 
+    }
+
+    // login 
+
+    const loginWithEmailandpassword = (email , password)=>{
+        return signInWithEmailAndPassword(Auth,email,password);
+    }
+
+    // log out
+
+    const logoutbutton = () =>{
+        return signOut(Auth)
     }
 
 
@@ -31,10 +49,26 @@ function ContextProvider({children}) {
 
 
     const authInfo={
-        createUserWithPassword,
-        siginINWithGoogle 
+        UserWithPasswordRegistation ,
+        siginINWithGoogle ,setuser,setloading,
+        loginWithEmailandpassword,logoutbutton,user
 
     }
+
+    useEffect(()=>{
+
+        const subcribe = onAuthStateChanged(Auth, (currentUser)=>{
+            console.log(currentUser);
+
+     
+            setuser(currentUser)
+        
+        setloading(false);
+
+        })
+
+        return ()=>  subcribe();
+    },[])
 
 
     

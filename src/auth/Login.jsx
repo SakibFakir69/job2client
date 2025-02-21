@@ -1,25 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
+import { Myproviderapi } from "../context/ContextProvider";
 
 function Login() {
+  const { setloading, siginINWithGoogle } = useContext(Myproviderapi);
 
-    const goHome = useNavigate()
-    console.log(goHome)
+  const goHome = useNavigate();
+  console.log(goHome);
 
+  const handelSubmmit = (e) => {
+    e.preventDefault();
+    goHome("/");
     
 
-    const handelSubmmit = (e) =>{
-        e.preventDefault();
-        goHome('/')
-       
-    }
 
+  };
 
   return (
     <section className="w-full border min-h-screen  ">
-
       <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl flex items-center justify-center mx-auto mt-20">
-
         <form className="card-body" onSubmit={handelSubmmit}>
           <div className="form-control">
             <label className="label">
@@ -54,7 +53,10 @@ function Login() {
         </form>
 
         <div>
-          <p>You have no account Registation <NavLink to={'/authlayouts/registation'}>Registation</NavLink></p>
+          <p>
+            You have no account Registation{" "}
+            <NavLink to={"/authlayouts/registation"}>Registation</NavLink>
+          </p>
         </div>
       </div>
     </section>

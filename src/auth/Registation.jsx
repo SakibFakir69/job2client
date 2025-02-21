@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink ,useNavigate} from "react-router-dom";
 import { Myproviderapi } from "../context/ContextProvider";
 import {toast,ToastContainer } from 'react-toastify'
+
 function Registation() {
 
-  const { createUserWithPassword , setuser ,setloading} = useContext(Myproviderapi);
+  const Gohome = useNavigate();
+
+  const { UserWithPasswordRegistation  , setuser ,setloading,siginINWithGoogle} = useContext(Myproviderapi);
+
 
 
   const handelSubmmit = (e) => {
@@ -14,6 +18,7 @@ function Registation() {
     const info_form = Object.fromEntries(info);
 
     const {email , password}  = info_form;
+    console.log(info_form);
 
     if(!email )
     {
@@ -28,15 +33,18 @@ function Registation() {
 
     }
 
-    createUserWithPassword(email,password)
+    UserWithPasswordRegistation (email,password)
+
     .then((res)=>{
       setloading(true);
 
-      const user = res.users ;
+      const user = res.user ;
+      console.log(res);
       if(user)
       {
         setuser(user)
         setloading(false);
+        Gohome('/')
       }
 
     })
@@ -48,6 +56,27 @@ function Registation() {
 
 
   };
+
+  const googleButton = () =>{
+    setloading(true);
+
+    siginINWithGoogle()
+    .then((res)=>{
+      const user = res.user ;
+      if(user)
+      {
+        setuser(user);
+        setloading(false);
+        Gohome('/')
+      }
+
+    })
+    .catch((error)=>{
+      console.log(error.message)
+    })
+  }
+  
+
 
 
   return (
@@ -107,9 +136,20 @@ function Registation() {
               </label>
             </div>
             <div className="form-control mt-6">
+
               <button type="submit" className="btn btn-primary">Registation Now</button>
             </div>
           </form>
+
+          <div className="mb-2 -mt-3">
+          <button
+          onClick={googleButton}
+                className="border border-[#e5eaf2] rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-[#424242] hover:bg-gray-50 transition-all duration-200 shadow-xl cursor-pointer">
+                <img src="https://i.ibb.co/dQMmB8h/download-4-removebg-preview-1.png" alt="google logo"
+                     className="w-[23px]"/>
+                Sign in with Google
+            </button>
+          </div>
 
           <div>
             <p className="-mt-4 p-3">
