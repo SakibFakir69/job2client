@@ -41,7 +41,7 @@ function Board() {
     if (!destination) return;
 
     let task = getTaskById(draggableId, [...todo, ...processing, ...done]);
-    
+
     if (!task) return; // If no task is found, do nothing
     const newCategory =
     destination.droppableId === "1" ? "To_Do" :
@@ -65,6 +65,7 @@ function Board() {
     console.log(draggableId,"id");
     console.log(updatedTask.category,"category");
 
+    // 
     // 
     fetch(`http://localhost:5000/tasks/${draggableId}`, {
       method: "PUT",
