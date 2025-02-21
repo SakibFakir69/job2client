@@ -5,8 +5,8 @@
 
 import React, { createContext, useContext, useState } from 'react'
 import { Auth } from '../firebase/config';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-export const Myprovider = createContext();
+import { GoogleAuthProvider, ProviderId, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+export const Myproviderapi = createContext();
 
 function ContextProvider({children}) {
 
@@ -19,6 +19,12 @@ function ContextProvider({children}) {
     const  createUserWithPassword = (email , password)=>{
         return signInWithEmailAndPassword(email, password)
     }
+    const Provider = new GoogleAuthProvider();
+    const siginINWithGoogle = ()=>{
+
+        return signInWithPopup(Auth,Provider)
+
+    }
 
 
 
@@ -26,6 +32,7 @@ function ContextProvider({children}) {
 
     const authInfo={
         createUserWithPassword,
+        siginINWithGoogle 
 
     }
 
@@ -36,10 +43,10 @@ function ContextProvider({children}) {
 
   return (
     <div>
-        <Myprovider.Provider value={authInfo}>
+        <Myproviderapi.Provider value={authInfo}>
             {children}
 
-        </Myprovider.Provider>
+        </Myproviderapi.Provider>
 
 
     </div>

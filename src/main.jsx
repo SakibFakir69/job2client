@@ -18,6 +18,7 @@ import {
 import AuthLayouts from "./auth/AuthLayouts.jsx";
 import Login from "./auth/Login.jsx";
 import Registation from "./auth/Registation.jsx";
+import ContextProvider from "./context/ContextProvider.jsx";
 
 const queryClient = new QueryClient();
 
@@ -50,20 +51,12 @@ const route = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <QueryClientProvider client={queryClient}>
+
+  <ContextProvider>
+    <QueryClientProvider client={queryClient}>
     <RouterProvider router={route}></RouterProvider>
   </QueryClientProvider>
+  </ContextProvider>
+
 );
 
-<BrowserRouter>
-  <Routes>
-    <Route path="/" element={<h1>Home</h1>}>
-      <Route path="home2" element={<h2>home 2</h2>} />
-    </Route>
-
-    <Route path="/authlayout" element={<h1>Auth layouts</h1>}>
-      <Route path="login" element={<h1>Login</h1>} />
-      <Route path="registation" element={<h2>Registation</h2>}></Route>
-    </Route>
-  </Routes>
-</BrowserRouter>;

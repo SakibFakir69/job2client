@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 
 function Login() {
 
@@ -52,6 +52,10 @@ function Login() {
             <button className="btn btn-primary">Login</button>
           </div>
         </form>
+
+        <div>
+          <p>You have no account Registation <NavLink to={'/authlayouts/registation'}>Registation</NavLink></p>
+        </div>
       </div>
     </section>
   );
