@@ -2,14 +2,8 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 function Task({ task, index }) {
-
-    if(!task || !task._id)
-    {
-        return null;
-    }
   return (
-    <Draggable draggableId={task._id.toString()}
-     index={index}>
+    <Draggable draggableId={task._id.toString()} index={index}>
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
@@ -17,11 +11,9 @@ function Task({ task, index }) {
           {...provided.dragHandleProps}
           className={`border p-2 ${snapshot.isDragging ? "bg-gray-300" : "bg-white"}`}
         >
-          <span className="text-xl font-semibold p-2">
-            <small>{task.id}</small>
-          </span>
           <p>{task.title}</p>
-          <button className="border">Delete</button>
+          <p>{task.description}</p>
+          <p>{task.category}</p>
         </div>
       )}
     </Draggable>

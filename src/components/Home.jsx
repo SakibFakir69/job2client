@@ -62,9 +62,10 @@ function Home() {
               value={task.category}
               onChange={handelChnage}
             >
-              <option value={"To_Do"}>Do to</option>
+              <option value={"To_Do"}>To Do</option>
               <option value="In Progress">Processing</option>
               <option value={"Done"}>Done</option>
+              
             </select>
           </div>
 

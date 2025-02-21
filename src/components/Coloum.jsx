@@ -1,37 +1,26 @@
-import React from 'react';
-import { Droppable } from 'react-beautiful-dnd';
-import Task from './Task';
+import React from "react";
+import { Droppable } from "react-beautiful-dnd";
+import Task from "./Task";
 
 function Coloum({ title, tasks, id }) {
-
-    // here your api 
-
-
   return (
-    <div>
-      <p>{title}</p>
+    <div className="p-4 bg-white border rounded-md shadow">
+      <h3 className="text-lg font-semibold">{title}</h3>
 
-      <Droppable droppableId={id}>
-
-        {(provided, snapshot) => (
+      <Droppable droppableId={id.toString()} isDropDisabled={false}>
+        {(provided) => (
           <div
-            className="border p-2 border-black"
             ref={provided.innerRef}
             {...provided.droppableProps}
+            className="min-h-[200px] p-2 bg-gray-50"
           >
-            {/* Provide your tasks dynamically */}
-
-
-       
-              <Task task={{id: 123, title: "okasdklasnd" }} index={1} />
-
-              {
-                tasks.map((task,index)=><Task key={index} index={index} task={task}/> )
-
-              }
-     
-
-            {/* Required placeholder */}
+            {tasks.length > 0 ? (
+              tasks.map((task, index) => (
+                <Task key={task._id} index={index} task={task} />
+              ))
+            ) : (
+              <p className="text-gray-400">No tasks</p>
+            )}
             {provided.placeholder}
           </div>
         )}

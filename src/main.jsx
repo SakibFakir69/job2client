@@ -33,7 +33,6 @@ createRoot(document.getElementById("root")).render(
 
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={route}>
-  
       </RouterProvider>
     </QueryClientProvider>
 
