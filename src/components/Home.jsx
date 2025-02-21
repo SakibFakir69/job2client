@@ -32,14 +32,20 @@ function Home() {
   };
 
   return (
-    <div className="">
+    <div className=" -mt-3 p-4">
+
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-      <button
-        className="btn"
+     
+     <div className="flex w-full  items-center justify-center ">
+     <button
+        className="md:px-10 px-8 py-2 rounded shadow-xl
+        border border-teal-200/20 bg-green-400 text-white text-xl"
         onClick={() => document.getElementById("my_modal_5").showModal()}
       >
-        open modal
+        Add <i class="ri-add-line"></i>
       </button>
+     </div>
+
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <div>
@@ -65,14 +71,14 @@ function Home() {
               <option value={"To_Do"}>To Do</option>
               <option value="In Progress">Processing</option>
               <option value={"Done"}>Done</option>
-              
+
             </select>
           </div>
 
           <div className="modal-action">
             <form method="dialog" onSubmit={handelSubmit}>
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">Submit</button>
             </form>
           </div>
         </div>

@@ -4,11 +4,14 @@ import Column from "./Coloum";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 function Board() {
+
   const queryClient = useQueryClient();
   const [columns, setColumns] = useState({
+
     "1": { title: "To_Do", tasks: [] },
     "2": { title: "In Progress", tasks: [] },
     "3": { title: "Done", tasks: [] },
+
   });
 
   // 🟢 Fetch tasks from the database
@@ -28,15 +31,21 @@ function Board() {
     },
   });
 
+
   // 🟢 Mutation to update task category in the database
   const updateTaskMutation = useMutation({
+
     mutationFn: async ({ id, category, newIndex }) => {
       await fetch(`http://localhost:5000/tasks/${id}`, {
+
         method: "PUT",
+
         headers: { "Content-Type": "application/json" },
+
         body: JSON.stringify({ category, order: newIndex }),
       });
     },
+
     onSettled: () => {
       queryClient.invalidateQueries(["tasks"]); // Refresh tasks after update
     },
@@ -44,11 +53,14 @@ function Board() {
 
   // 🟢 Handle Drag & Drop
   const handleDragEnd = (result) => {
+
     const { source, destination, draggableId } = result;
+
     if (!destination) return; // If dropped outside, do nothing
 
     const sourceColumn = columns[source.droppableId];
     const destColumn = columns[destination.droppableId];
+
 
     if (!sourceColumn || !destColumn) return;
 
@@ -88,10 +100,12 @@ function Board() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
+
       <h2>Task Board</h2>
-      <div className="grid grid-cols-3 gap-4 border p-4">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-4  ">
         {Object.entries(columns).map(([columnId, column]) => (
           <Droppable key={columnId} droppableId={columnId}>
+
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <Column title={column.title} tasks={column.tasks} id={columnId} />

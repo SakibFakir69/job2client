@@ -4,7 +4,7 @@ import Task from "./Task";
 
 function Coloum({ title, tasks, id }) {
   return (
-    <div className="p-4 bg-white border rounded-md shadow">
+    <div className="p-4 bg-white  rounded-md shadow">
       <h3 className="text-lg font-semibold">{title}</h3>
 
       <Droppable droppableId={id.toString()} isDropDisabled={false}>
@@ -12,7 +12,7 @@ function Coloum({ title, tasks, id }) {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className="min-h-[200px] p-2 bg-gray-50"
+            className="min-h-[200px] p-2 bg-gray-50 border border-stone-300 b" 
           >
             {tasks.length > 0 ? (
               tasks.map((task, index) => (

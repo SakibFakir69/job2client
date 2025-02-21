@@ -14,7 +14,7 @@ function App() {
         <Navbar/>
       </header>
 
-      <main className='px-10'>
+      <main className='px-10 bg-stone-200 min-h-screen'>
         <Home/>
 
      
