@@ -2,8 +2,11 @@ import React, { useContext } from "react";
 import { NavLink ,useNavigate} from "react-router-dom";
 import { Myproviderapi } from "../context/ContextProvider";
 import {toast,ToastContainer } from 'react-toastify'
+import UseApi from "../api/UseApi";
 
 function Registation() {
+
+  const useaxiosapi = UseApi();
 
   const Gohome = useNavigate();
 
@@ -11,7 +14,7 @@ function Registation() {
 
 
 
-  const handelSubmmit = (e) => {
+  const handelSubmmit =async (e) => {
     e.preventDefault();
 
     const info  = new FormData(e.target);
@@ -33,6 +36,11 @@ function Registation() {
 
     }
 
+    const users={
+      email:email,
+      password:password,
+    }
+
     UserWithPasswordRegistation (email,password)
 
     .then((res)=>{
@@ -42,9 +50,25 @@ function Registation() {
       console.log(res);
       if(user)
       {
+
+        useaxiosapi.post('users',users)
+        .then((res)=>{
+          console.log(res);
+
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+
+
+
+
         setuser(user)
         setloading(false);
         Gohome('/')
+
+
+
       }
 
     })
